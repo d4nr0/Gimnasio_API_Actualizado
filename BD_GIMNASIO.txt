@@ -1,0 +1,87 @@
+-- =========================================================
+-- SCRIPT PRINCIPAL - Proyecto Gimnasio (DAW II - CIBERTEC)
+-- Crea la base de datos y las tablas necesarias.
+--
+-- Uso:
+--   - Si YA corriste el backend con Spring Boot al menos una vez,
+--     las tablas ya existen (Hibernate las crea solo) y NO necesitas
+--     este script, salvo que quieras recrearlo todo desde cero.
+--   - Si quieres tener la base de datos lista ANTES de correr el
+--     backend, ejecuta este script completo primero.
+-- =========================================================
+
+CREATE DATABASE IF NOT EXISTS db_gimnasio
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE db_gimnasio;
+
+-- =========================================================
+-- Tabla: usuarios (para el login / autenticacion)
+-- =========================================================
+DROP TABLE IF EXISTS usuarios;
+
+CREATE TABLE usuarios (
+    id       BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50)  NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,          -- password cifrado con BCryptPasswordEncoder
+    rol      VARCHAR(20)  NOT NULL DEFAULT 'ADMIN',
+    activo   BOOLEAN      NOT NULL DEFAULT TRUE
+);
+
+-- Usuario administrador por defecto
+-- username: admin  |  password: admin123  (ya cifrado con BCrypt)
+INSERT INTO usuarios (username, password, rol, activo) VALUES
+('admin', '$2b$10$5q/SXOTnWd0KewkralZsceCHKXhQ2QBS5XLP.uAQzziXUtOiufm0O', 'ADMIN', TRUE);
+
+-- =========================================================
+-- Tabla: socios (CRUD principal del proyecto)
+-- =========================================================
+DROP TABLE IF EXISTS socios;
+
+CREATE TABLE socios (
+    id                BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombres           VARCHAR(60)  NOT NULL,
+    apellidos         VARCHAR(60)  NOT NULL,
+    dni               VARCHAR(8)   NOT NULL UNIQUE,
+    email             VARCHAR(80),
+    telefono          VARCHAR(15),
+    fecha_nacimiento  DATE,
+    plan              VARCHAR(20)  NOT NULL,   -- MENSUAL, TRIMESTRAL, SEMESTRAL, ANUAL
+    fecha_inscripcion DATE         NOT NULL,
+    activo            BOOLEAN      NOT NULL DEFAULT TRUE
+);
+
+-- =========================================================
+-- Verificacion rapida
+-- =========================================================
+SELECT * FROM usuarios;
+SELECT * FROM socios;
+
+
+-- =========================================================
+-- Script de datos de ejemplo para el proyecto Gimnasio CIBERTEC
+-- Ejecutar DESPUES de haber levantado el backend al menos una vez
+-- (asi Hibernate ya creo las tablas 'usuarios' y 'socios').
+-- =========================================================
+
+USE db_gimnasio-- =========================================================
+-- Script de datos de ejemplo para el proyecto Gimnasio CIBERTEC
+-- Ejecutar DESPUES de haber levantado el backend al menos una vez
+-- (asi Hibernate ya creo las tablas 'usuarios' y 'socios').
+-- =========================================================
+
+
+
+INSERT INTO socios (nombres, apellidos, dni, email, telefono, fecha_nacimiento, plan, fecha_inscripcion, activo) VALUES
+('Carlos', 'Ramirez Torres',   '71234567', 'carlos.ramirez@correo.com',  '987654321', '1998-03-12', 'MENSUAL',    '2026-01-05', TRUE),
+('Maria',  'Gonzales Huaman',  '72345678', 'maria.gonzales@correo.com',  '956123478', '1995-07-22', 'TRIMESTRAL', '2026-01-10', TRUE),
+('Jose',   'Fernandez Lopez',  '73456789', 'jose.fernandez@correo.com',  '945678912', '2000-11-02', 'ANUAL',      '2026-01-15', TRUE),
+('Lucia',  'Vargas Castillo',  '74567890', 'lucia.vargas@correo.com',    '934567891', '1999-05-30', 'MENSUAL',    '2026-02-01', TRUE),
+('Andres', 'Quispe Mamani',    '75678901', 'andres.quispe@correo.com',   '923456789', '1997-09-18', 'SEMESTRAL',  '2026-02-08', TRUE),
+('Fiorella','Torres Salazar',  '76789012', 'fiorella.torres@correo.com', '912345678', '2001-01-25', 'MENSUAL',    '2026-02-14', FALSE),
+('Diego',  'Chavez Rojas',     '77890123', 'diego.chavez@correo.com',    '998877665', '1996-12-09', 'TRIMESTRAL', '2026-03-01', TRUE),
+('Camila', 'Flores Medina',    '78901234', 'camila.flores@correo.com',   '987112233', '2002-06-14', 'ANUAL',      '2026-03-05', TRUE);
+
+-- Verificar
+SELECT * FROM socios;
