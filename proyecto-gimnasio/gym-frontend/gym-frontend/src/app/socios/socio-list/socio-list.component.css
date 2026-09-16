@@ -1,0 +1,8 @@
+.col-actions {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.col-actions button + button {
+  margin-left: 6px;
+}

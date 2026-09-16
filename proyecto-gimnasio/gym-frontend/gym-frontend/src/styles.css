@@ -1,0 +1,265 @@
+/* ============================================================
+   Sistema de diseño — Gimnasio CIBERTEC
+   ============================================================ */
+
+:root {
+  --ink: #16211c;
+  --ink-soft: #55655d;
+  --ink-faint: #8a978e;
+
+  --bg: #f4f6f3;
+  --surface: #ffffff;
+
+  --sidebar: #132019;
+  --sidebar-soft: #24352c;
+  --sidebar-text: #cfe0d5;
+  --sidebar-text-dim: #7f9689;
+
+  --accent: #2f8f5b;
+  --accent-dark: #23703f;
+  --accent-soft: #e4f2ea;
+
+  --danger: #c23b2e;
+  --danger-soft: #fbeae7;
+
+  --border: #dde3dc;
+  --border-strong: #c6cec5;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+
+  --shadow-card: 0 1px 2px rgba(19, 32, 25, 0.05), 0 12px 28px -16px rgba(19, 32, 25, 0.18);
+
+  --font-display: 'Manrope', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: 1.75rem; font-weight: 800; }
+h2 { font-size: 1.375rem; font-weight: 700; }
+h3 { font-size: 1rem; font-weight: 700; }
+
+p { margin: 0; }
+
+a { color: var(--accent-dark); }
+
+/* ---------- Formularios ---------- */
+
+label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input::placeholder { color: var(--ink-faint); }
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+input[type="checkbox"] {
+  width: auto;
+  accent-color: var(--accent);
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 0.8125rem;
+  margin-top: 6px;
+}
+
+.form-banner-error {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+}
+
+/* ---------- Botones ---------- */
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 18px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) { background-color: var(--accent-dark); }
+
+.btn-danger {
+  background-color: transparent;
+  color: var(--danger);
+  padding: 8px 12px;
+}
+.btn-danger:hover:not(:disabled) { background-color: var(--danger-soft); }
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--border-strong);
+  padding: 9px 17px;
+}
+.btn-secondary:hover:not(:disabled) { background-color: var(--bg); }
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--ink-soft);
+  padding: 8px 12px;
+}
+.btn-ghost:hover:not(:disabled) { background-color: var(--sidebar-soft); }
+
+/* ---------- Tabla ---------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  padding: 0 14px 10px;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9375rem;
+  color: var(--ink);
+}
+
+tbody tr:hover {
+  background-color: var(--accent-soft);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ---------- Estado / pill ---------- */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 3px 10px 3px 8px;
+  border-radius: 999px;
+}
+
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.pill-activo {
+  color: var(--accent-dark);
+  background: var(--accent-soft);
+}
+.pill-activo .pill-dot { background: var(--accent); }
+
+.pill-inactivo {
+  color: var(--ink-soft);
+  background: var(--border);
+}
+.pill-inactivo .pill-dot { background: var(--ink-faint); }
+
+/* ---------- Tarjeta ---------- */
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---------- Utilidades de layout ---------- */
+
+.page {
+  padding: 32px 40px;
+  max-width: 1080px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.page-header p {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  margin-top: 4px;
+}
+
+.empty-state {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 720px) {
+  .page { padding: 20px; }
+}

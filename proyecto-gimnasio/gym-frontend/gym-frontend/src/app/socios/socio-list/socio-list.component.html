@@ -1,0 +1,57 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Socios</h1>
+      <p>{{ socios.length }} socio{{ socios.length === 1 ? '' : 's' }} registrado{{ socios.length === 1 ? '' : 's' }}</p>
+    </div>
+    <button class="btn-primary" (click)="nuevo()">+ Nuevo socio</button>
+  </div>
+
+  <div class="form-banner-error" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+  <div class="card" *ngIf="cargando">
+    <p class="empty-state">Cargando socios...</p>
+  </div>
+
+  <div class="card" *ngIf="!cargando && socios.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>DNI</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Plan</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let socio of socios">
+          <td>{{ socio.dni }}</td>
+          <td>{{ socio.nombres }}</td>
+          <td>{{ socio.apellidos }}</td>
+          <td>{{ socio.email || '—' }}</td>
+          <td>{{ socio.plan }}</td>
+          <td>
+            <span class="pill" [ngClass]="socio.activo ? 'pill-activo' : 'pill-inactivo'">
+              <span class="pill-dot"></span>
+              {{ socio.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td class="col-actions">
+            <button class="btn-secondary" (click)="editar(socio.id)">Editar</button>
+            <button class="btn-danger" (click)="eliminar(socio)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" *ngIf="!cargando && socios.length === 0">
+    <div class="empty-state">
+      <h3>No hay socios registrados todavía</h3>
+      <p style="margin-top: 6px;">Registra al primer socio para empezar a llevar el control de membresías.</p>
+    </div>
+  </div>
+</div>

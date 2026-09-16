@@ -1,0 +1,88 @@
+<div class="page page-narrow">
+  <div class="page-header">
+    <div>
+      <h1>{{ esEdicion ? 'Editar socio' : 'Nuevo socio' }}</h1>
+      <p>{{ esEdicion ? 'Actualiza los datos de la membresía.' : 'Completa los datos para registrar la membresía.' }}</p>
+    </div>
+  </div>
+
+  <div class="card form-card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <h3 class="section-title">Datos personales</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="nombres">Nombres</label>
+          <input id="nombres" type="text" formControlName="nombres">
+          <div class="field-error" *ngIf="form.get('nombres')?.touched && form.get('nombres')?.invalid">
+            Los nombres son obligatorios
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="apellidos">Apellidos</label>
+          <input id="apellidos" type="text" formControlName="apellidos">
+          <div class="field-error" *ngIf="form.get('apellidos')?.touched && form.get('apellidos')?.invalid">
+            Los apellidos son obligatorios
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="dni">DNI</label>
+          <input id="dni" type="text" formControlName="dni" maxlength="8">
+          <div class="field-error" *ngIf="form.get('dni')?.touched && form.get('dni')?.invalid">
+            El DNI debe tener 8 dígitos
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="fechaNacimiento">Fecha de nacimiento</label>
+          <input id="fechaNacimiento" type="date" formControlName="fechaNacimiento">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email">
+          <div class="field-error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+            Ingrese un email válido
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="telefono">Teléfono</label>
+          <input id="telefono" type="text" formControlName="telefono">
+        </div>
+      </div>
+
+      <h3 class="section-title section-title-spaced">Membresía</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="plan">Plan</label>
+          <select id="plan" formControlName="plan">
+            <option *ngFor="let p of planes" [value]="p">{{ p }}</option>
+          </select>
+        </div>
+
+        <div class="field field-checkbox">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="activo">
+            Membresía activa
+          </label>
+        </div>
+      </div>
+
+      <div class="form-banner-error" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="guardando">
+          {{ guardando ? 'Guardando...' : 'Guardar' }}
+        </button>
+        <button type="button" class="btn-secondary" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
